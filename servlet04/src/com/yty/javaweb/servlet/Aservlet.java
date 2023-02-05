@@ -12,6 +12,7 @@ public class Aservlet extends GenericServlet {
         ServletContext servletContext = this.getServletContext();
         writer.print(servletContext);
         writer.print("<br>");
+        writer.print(servletContext.getAttribute("user") + "<br>");
         //org.apache.catalina.core.ApplicationContextFacade@418d20c4
 
     }   
