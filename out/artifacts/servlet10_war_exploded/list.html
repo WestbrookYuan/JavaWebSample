@@ -6,23 +6,23 @@
 	</head>
 	<body>
 
-<script type='text/javascript'>
-	function del(dno){
-		// 弹出确认框，用户点击确定，返回true，点击取消返回false
-		var ok = window.confirm('亲，删了不可恢复哦！');
-		if(ok){
-			// 发送请求进行删除数据的操作。
-			// 在JS代码当中如何发送请求给服务器？
-			//alert("正在删除数据，请稍后...")
+	<script type='text/javascript'>
+		function del(dno){
+			// 弹出确认框，用户点击确定，返回true，点击取消返回false
+			var ok = window.confirm('亲，删了不可恢复哦！');
+			if(ok){
+				// 发送请求进行删除数据的操作。
+				// 在JS代码当中如何发送请求给服务器？
+				//alert("正在删除数据，请稍后...")
 
-			//document.location.href = "请求路径"
-			//document.location = "请求路径"
-			//window.location.href = "请求路径"
-			//window.location = "请求路径"
-			document.location.href = '/oa/dept/delete?deptno=' + dno;
+				//document.location.href = "请求路径"
+				//document.location = "请求路径"
+				//window.location.href = "请求路径"
+				//window.location = "请求路径"
+				document.location.href = '/oa/dept/delete?deptno=' + dno;
+			}
 		}
-	}
-</script>
+	</script>
 
 		<h1 align='center'>部门列表</h1>
 		<hr >
@@ -51,7 +51,7 @@
 <!--					&lt;!&ndash;href后面设置为 javascript:void(0) 表示：仍然保留住超链接的样子&ndash;&gt;-->
 <!--					&lt;!&ndash;点击此超链接之后，不进行页面的跳转。&ndash;&gt;-->
 <!--					&lt;!&ndash;我只是希望用户点击该超链接的时候执行一段JS代码，不进行页面的跳转。&ndash;&gt;-->
-<!--					<a href="javascript:void(0)" onclick="del(20)" >删除</a>-->
+					<a href="javascript:void(0)" onclick="del(20)" >删除</a>
 <!--					<a href="edit.html">修改</a>-->
 <!--					<a href="detail.html">详情</a>-->
 <!--				</td>-->

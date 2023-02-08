@@ -15,6 +15,11 @@ import java.sql.SQLException;
 
 public class DeptServlet extends HttpServlet {
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String contextPath = req.getContextPath();
 
@@ -31,6 +36,14 @@ public class DeptServlet extends HttpServlet {
         writer.print("<title>部门列表页面</title>");
         writer.print("</head>");
         writer.print("<body>");
+        writer.print("<script type='text/javascript'>");
+        writer.print("function del(dno){");
+        writer.print("var ok = window.confirm('亲，删了不可恢复哦！');");
+        writer.print(" if(ok){");
+        writer.print("document.location.href = '/servlet10/dept/delete?deptno=' + dno;");
+        writer.print("}");
+        writer.print("}");
+        writer.print("</script>");
         writer.print("<h1 align='center'>部门列表</h1>");
         writer.print("<hr >");
         writer.print("<table border='1px' align='center' width='50%'>");
@@ -57,7 +70,7 @@ public class DeptServlet extends HttpServlet {
                 writer.print("<td>"+deptno+"</td>");
                 writer.print("<td>"+dname+"</td>");
                 writer.print("<td>");
-                writer.print("<a href=''>删除</a>");
+                writer.print("<a href='javascript:void(0)' onclick='del("+deptno+")'>删除</a>");
                 writer.print("<a href='edit.html'>修改</a>");
                 writer.print("<a href='"+contextPath+"/dept/detail?deptno="+deptno+"'>详情</a>");
                 writer.print("</td>");
@@ -75,7 +88,7 @@ public class DeptServlet extends HttpServlet {
 
         writer.print("</table>");
         writer.print("<hr >");
-        writer.print("<a href='add.html'>新增部门</a>");
+        writer.print("<a href='/servlet10/add.html'>新增部门</a>");
         writer.print("</body>");
         writer.print("</html>");
     }

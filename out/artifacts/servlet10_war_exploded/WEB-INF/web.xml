@@ -3,6 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+
     <servlet>
         <servlet-name>list</servlet-name>
         <servlet-class>com.yty.javaweb.oa.web.action.DeptServlet</servlet-class>
@@ -11,6 +13,8 @@
         <servlet-name>list</servlet-name>
         <url-pattern>/dept/list</url-pattern>
     </servlet-mapping>
+
+
     <servlet>
         <servlet-name>detail</servlet-name>
         <servlet-class>com.yty.javaweb.oa.web.action.DeptDetailServlet</servlet-class>
@@ -18,5 +22,23 @@
     <servlet-mapping>
         <servlet-name>detail</servlet-name>
         <url-pattern>/dept/detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>delete</servlet-name>
+        <servlet-class>com.yty.javaweb.oa.web.action.DeptDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>delete</servlet-name>
+        <url-pattern>/dept/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>add</servlet-name>
+        <servlet-class>com.yty.javaweb.oa.web.action.DeptAddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add</servlet-name>
+        <url-pattern>/dept/add</url-pattern>
     </servlet-mapping>
 </web-app>
