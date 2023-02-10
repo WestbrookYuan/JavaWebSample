@@ -41,4 +41,22 @@
         <servlet-name>add</servlet-name>
         <url-pattern>/dept/add</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>edit</servlet-name>
+        <servlet-class>com.yty.javaweb.oa.web.action.DeptEditServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>edit</servlet-name>
+        <url-pattern>/dept/edit</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>update</servlet-name>
+        <servlet-class>com.yty.javaweb.oa.web.action.DeptUpdateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>update</servlet-name>
+        <url-pattern>/dept/update</url-pattern>
+    </servlet-mapping>
 </web-app>

@@ -71,7 +71,7 @@ public class DeptServlet extends HttpServlet {
                 writer.print("<td>"+dname+"</td>");
                 writer.print("<td>");
                 writer.print("<a href='javascript:void(0)' onclick='del("+deptno+")'>删除</a>");
-                writer.print("<a href='edit.html'>修改</a>");
+                writer.print("<a href='"+contextPath+"/dept/edit?deptno="+deptno+"'>修改</a>");
                 writer.print("<a href='"+contextPath+"/dept/detail?deptno="+deptno+"'>详情</a>");
                 writer.print("</td>");
                 writer.print("</tr>");
