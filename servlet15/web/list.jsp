@@ -30,6 +30,8 @@
 	</script>
 
 		<h1 align='center'>部门列表</h1>
+		<h3>welcome <%=session.getAttribute("username")%></h3>
+		<a href="<%=request.getContextPath()%>/user/logout">logout</a>
 		<hr >
 		<table border='1px' align='center' width='50%'>
 			<tr>

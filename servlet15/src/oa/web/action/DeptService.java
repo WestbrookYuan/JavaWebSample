@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -24,26 +25,32 @@ public class DeptService extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String servletPath = req.getServletPath();
-        if (servletPath.equals("/dept/list")) {
-            doList(req, resp);
+        HttpSession session = req.getSession(false);
+        if (session == null || session.getAttribute("username") == null){
+            resp.sendRedirect(req.getContextPath());
         }
-        else if (servletPath.equals("/dept/detail")) {
-            doDetail(req, resp);
+        else {
+            String servletPath = req.getServletPath();
+            if (servletPath.equals("/dept/list")) {
+                doList(req, resp);
+            }
+            else if (servletPath.equals("/dept/detail")) {
+                doDetail(req, resp);
+            }
+            else if (servletPath.equals("/dept/delete")) {
+                doDel(req, resp);
+            }
+            else if (servletPath.equals("/dept/add")) {
+                doAdd(req, resp);
+            }
+            else if (servletPath.equals("/dept/edit")) {
+                doEdit(req, resp);
+            }
+            else if (servletPath.equals("/dept/update")) {
+                doUpdate(req, resp);
+            }
         }
-        else if (servletPath.equals("/dept/delete")) {
-            doDel(req, resp);
-        }
-        else if (servletPath.equals("/dept/add")) {
-            doAdd(req, resp);
-        }
-        else if (servletPath.equals("/dept/edit")) {
-            doEdit(req, resp);
-        }
-        else if (servletPath.equals("/dept/update")) {
-            doUpdate(req, resp);
-        }
-        }
+    }
 
     private void doUpdate(HttpServletRequest req, HttpServletResponse resp) {
         try {

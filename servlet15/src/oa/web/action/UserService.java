@@ -7,17 +7,40 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@WebServlet(urlPatterns = {"/user/login"})
+@WebServlet(urlPatterns = {"/user/login", "/user/logout"})
 public class UserService extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("/user/login")){
+            doLogin(request, response);
+        } else if (servletPath.equals("/user/logout")) {
+            doLogout(request, response);
+        }
+    }
+
+    private void doLogout(HttpServletRequest request, HttpServletResponse response) {
+        HttpSession session = request.getSession(false);
+        if (session != null){
+            session.invalidate();
+            try {
+                response.sendRedirect(request.getContextPath());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+    }
+
+    protected void doLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -48,6 +71,8 @@ public class UserService extends HttpServlet {
         }
 
         if (loginSuccess){
+            HttpSession session = request.getSession();
+            session.setAttribute("username", username);
             response.sendRedirect(request.getContextPath()+"/dept/list");
         }
         else {
