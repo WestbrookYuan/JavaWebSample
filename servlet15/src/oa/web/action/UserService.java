@@ -4,10 +4,7 @@ import oa.utils.DBUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -73,6 +70,19 @@ public class UserService extends HttpServlet {
         if (loginSuccess){
             HttpSession session = request.getSession();
             session.setAttribute("username", username);
+            String isKeep = request.getParameter("keep");
+            if(isKeep != null && isKeep.equals("keep")){
+                Cookie nameCookie = new Cookie("username", username);
+                Cookie pwdCookie = new Cookie("password", password);
+
+                nameCookie.setMaxAge(60*60*24*10);
+                pwdCookie.setMaxAge(60*60*24*10);
+                nameCookie.setPath(request.getContextPath());
+                pwdCookie.setPath(request.getContextPath());
+
+                response.addCookie(nameCookie);
+                response.addCookie(pwdCookie);
+            }
             response.sendRedirect(request.getContextPath()+"/dept/list");
         }
         else {

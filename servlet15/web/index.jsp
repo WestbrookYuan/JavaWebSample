@@ -20,6 +20,9 @@
 		</label>
 		<br>
 		<input type="submit" value="login">
+		<label>
+			<input type="checkbox" name="keep" value="keep">keep login
+		</label>
 	</form>
 
 	</body>
