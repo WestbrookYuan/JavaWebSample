@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Servlet06/Servlet06.iml" filepath="$PROJECT_DIR$/Servlet06/Servlet06.iml" />
+      <module fileurl="file://$PROJECT_DIR$/bjnode/bjnode.iml" filepath="$PROJECT_DIR$/bjnode/bjnode.iml" />
       <module fileurl="file://$PROJECT_DIR$/javaweb.iml" filepath="$PROJECT_DIR$/javaweb.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet02/servlet02.iml" filepath="$PROJECT_DIR$/servlet02/servlet02.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet03/servlet03.iml" filepath="$PROJECT_DIR$/servlet03/servlet03.iml" />
@@ -19,6 +20,7 @@
       <module fileurl="file://$PROJECT_DIR$/servlet15/servlet15.iml" filepath="$PROJECT_DIR$/servlet15/servlet15.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet16/servlet16.iml" filepath="$PROJECT_DIR$/servlet16/servlet16.iml" />
       <module fileurl="file://$PROJECT_DIR$/servlet17/servlet17.iml" filepath="$PROJECT_DIR$/servlet17/servlet17.iml" />
+      <module fileurl="file://$PROJECT_DIR$/servlet18/servlet18.iml" filepath="$PROJECT_DIR$/servlet18/servlet18.iml" />
     </modules>
   </component>
 </project>

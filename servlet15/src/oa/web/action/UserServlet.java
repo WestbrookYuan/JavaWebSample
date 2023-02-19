@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet(urlPatterns = {"/user/login", "/user/logout"})
-public class UserService extends HttpServlet {
+public class UserServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -27,9 +27,36 @@ public class UserService extends HttpServlet {
     private void doLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         if (session != null){
-            session.invalidate();
+
+            // 销毁cookie（退出系统将所有的cookie全部销毁）
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    // 设置cookie的有效期为0，表示删除该cookie
+                    cookie.setMaxAge(0);
+                    // 设置一个下cookie的路径
+                    cookie.setPath(request.getContextPath()); // 删除cookie的时候注意路径问题。
+                    // 响应cookie给浏览器，浏览器端会将之前的cookie覆盖。
+                    response.addCookie(cookie);
+                }
+            }
+
+            // 换一种方案
+            /*Cookie cookie1 = new Cookie("username","");
+            cookie1.setMaxAge(0);
+            cookie1.setPath(request.getContextPath());
+
+            Cookie cookie2 = new Cookie("password", "");
+            cookie2.setMaxAge(0);
+            cookie2.setPath(request.getContextPath());
+
+            response.addCookie(cookie1);
+            response.addCookie(cookie2);*/
+
+
+            // 跳转到登录页面
             try {
-                response.sendRedirect(request.getContextPath());
+                response.sendRedirect(request.getContextPath()+"/index.jsp");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

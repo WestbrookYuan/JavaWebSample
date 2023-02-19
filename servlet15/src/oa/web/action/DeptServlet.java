@@ -1,6 +1,5 @@
 package oa.web.action;
 
-import com.sun.xml.internal.txw2.DatatypeWriter;
 import oa.bean.Department;
 import oa.utils.DBUtils;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,34 +19,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(urlPatterns = {"/dept/list", "/dept/delete", "/dept/add", "/dept/edit", "/dept/update", "/dept/detail"})
-public class DeptService extends HttpServlet {
+public class DeptServlet extends HttpServlet {
     @Override
-    protected void service(HttpServletRequest req, HttpServletResponse resp)
+    protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = req.getSession(false);
-        if (session == null || session.getAttribute("username") == null){
-            resp.sendRedirect(req.getContextPath());
-        }
-        else {
-            String servletPath = req.getServletPath();
-            if (servletPath.equals("/dept/list")) {
-                doList(req, resp);
-            }
-            else if (servletPath.equals("/dept/detail")) {
-                doDetail(req, resp);
-            }
-            else if (servletPath.equals("/dept/delete")) {
-                doDel(req, resp);
-            }
-            else if (servletPath.equals("/dept/add")) {
-                doAdd(req, resp);
-            }
-            else if (servletPath.equals("/dept/edit")) {
-                doEdit(req, resp);
-            }
-            else if (servletPath.equals("/dept/update")) {
-                doUpdate(req, resp);
-            }
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTf-8");
+//        HttpSession session = request.getSession(false);
+//        if (session == null && session.getAttribute("username") == null){
+//            response.sendRedirect(request.getContextPath());
+//        }
+//        else {
+        String servletPath = request.getServletPath();
+        if (servletPath.equals("/dept/list")) {
+            doList(request, response);
+        } else if (servletPath.equals("/dept/detail")) {
+            doDetail(request, response);
+        } else if (servletPath.equals("/dept/delete")) {
+            doDel(request, response);
+        } else if (servletPath.equals("/dept/add")) {
+            doAdd(request, response);
+        } else if (servletPath.equals("/dept/edit")) {
+            doEdit(request, response);
+        } else if (servletPath.equals("/dept/update")) {
+            doUpdate(request, response);
         }
     }
 
@@ -75,8 +69,7 @@ public class DeptService extends HttpServlet {
             count = ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
-        finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, rs);
             } catch (SQLException e) {
@@ -84,14 +77,13 @@ public class DeptService extends HttpServlet {
             }
         }
 
-        if(count == 1){
+        if (count == 1) {
             try {
                 resp.sendRedirect(req.getContextPath() + "/dept/list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             try {
                 resp.sendRedirect(req.getContextPath() + "/error.html");
             } catch (IOException e) {
@@ -104,7 +96,7 @@ public class DeptService extends HttpServlet {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtils.getConnection();
             String sql = "select deptno, dname, loc from dept where deptno=?";
             ps = conn.prepareStatement(sql);
@@ -112,7 +104,7 @@ public class DeptService extends HttpServlet {
             ps.setString(1, deptno);
             rs = ps.executeQuery();
             Department department = null;
-            if (rs.next()){
+            if (rs.next()) {
                 String dname = rs.getString("dname");
                 String loc = rs.getString("loc");
                 department = new Department(deptno, dname, loc);
@@ -120,14 +112,12 @@ public class DeptService extends HttpServlet {
             req.setAttribute("dept", department);
             req.getRequestDispatcher("/edit.jsp").forward(req, resp);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, rs);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -151,23 +141,22 @@ public class DeptService extends HttpServlet {
             count = ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, null);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        if(count == 1){
+        if (count == 1) {
             try {
-                resp.sendRedirect(req.getContextPath()+"/dept/list");
+                resp.sendRedirect(req.getContextPath() + "/dept/list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             try {
-                resp.sendRedirect(req.getContextPath()+"/error.jsp");
+                resp.sendRedirect(req.getContextPath() + "/error.jsp");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -187,23 +176,22 @@ public class DeptService extends HttpServlet {
             count = ps.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, null);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
         }
-        if(count == 1){
+        if (count == 1) {
             try {
-                resp.sendRedirect(req.getContextPath()+"/dept/list");
+                resp.sendRedirect(req.getContextPath() + "/dept/list");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-        }
-        else {
+        } else {
             try {
-                resp.sendRedirect(req.getContextPath()+"/error.jsp");
+                resp.sendRedirect(req.getContextPath() + "/error.jsp");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -214,7 +202,7 @@ public class DeptService extends HttpServlet {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtils.getConnection();
             String sql = "select deptno, dname, loc from dept where deptno=?";
             ps = conn.prepareStatement(sql);
@@ -222,7 +210,7 @@ public class DeptService extends HttpServlet {
             ps.setString(1, deptno);
             rs = ps.executeQuery();
             Department department = null;
-            if (rs.next()){
+            if (rs.next()) {
                 String dname = rs.getString("dname");
                 String loc = rs.getString("loc");
                 department = new Department(deptno, dname, loc);
@@ -230,14 +218,12 @@ public class DeptService extends HttpServlet {
             req.setAttribute("dept", department);
             req.getRequestDispatcher("/detail.jsp").forward(req, resp);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, rs);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
@@ -245,17 +231,17 @@ public class DeptService extends HttpServlet {
     }
 
 
-    private void doList(HttpServletRequest req, HttpServletResponse resp){
+    private void doList(HttpServletRequest req, HttpServletResponse resp) {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        try{
+        try {
             conn = DBUtils.getConnection();
             String sql = "select deptno, dname, loc from dept";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Department> depts = new ArrayList<Department>();
-            while (rs.next()){
+            while (rs.next()) {
                 String deptno = rs.getString("deptno");
                 String dname = rs.getString("dname");
                 String loc = rs.getString("loc");
@@ -265,14 +251,12 @@ public class DeptService extends HttpServlet {
             req.setAttribute("depts", depts);
             req.getRequestDispatcher("/list.jsp").forward(req, resp);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 DBUtils.close(conn, ps, rs);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

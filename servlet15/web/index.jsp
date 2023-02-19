@@ -5,12 +5,13 @@
 	<head>
 		<meta charset="utf-8">
 		<title>欢迎使用OA系统</title>
+		<base href="${pageContext.request.scheme}://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
 	</head>
 	<body>
 	<h1>Login Page</h1>
 
 <%--		 <a href="<%=request.getContextPath()%>/dept/list">查看部门列表</a>--%>
-	<form action="<%=request.getContextPath()%>/user/login" method="post">
+	<form action="user/login" method="post">
 		Username: <label>
 		<input type="text" name="username">
 		</label>
